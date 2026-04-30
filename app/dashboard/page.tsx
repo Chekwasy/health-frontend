@@ -85,7 +85,7 @@ export default function Dashboard() {
               <Card
                 title="Book Appointment"
                 desc="Find doctors and schedule appointments easily."
-                link="/appointments/book"
+                link="/patient/appointment/available-doctors"
                 color="bg-blue-600"
               />
 
@@ -104,7 +104,7 @@ export default function Dashboard() {
               <Card
                 title="Manage Schedule"
                 desc="Set your availability and manage bookings."
-                link="/doctor/schedule"
+                link="/doctor/schedule/view"
                 color="bg-green-600"
               />
 
@@ -116,7 +116,7 @@ export default function Dashboard() {
               />
             </div>
           )}
-
+  
           {/* PROFILE SUMMARY */}
           {logged && (
             <div className="mt-10 bg-white/10 backdrop-blur-md p-6 rounded-xl">

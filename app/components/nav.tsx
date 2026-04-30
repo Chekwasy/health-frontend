@@ -6,7 +6,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, logout, setInitialized } from "@/store/slices/mainslice";
+import {
+  setUser,
+  logout,
+  setInitialized,
+} from "@/store/slices/mainslice";
 
 export default function Nav() {
   const router = useRouter();
@@ -24,7 +28,8 @@ export default function Nav() {
 
       if (!token) {
         dispatch(setInitialized());
-        router.push('/auth/login');
+        router.push("/auth/login");
+        return;
       }
 
       try {
@@ -34,7 +39,6 @@ export default function Nav() {
           },
         });
 
-        // ✅ FIX: store BOTH me + profileComplete
         dispatch(
           setUser({
             me: res.data.me,
@@ -49,7 +53,7 @@ export default function Nav() {
     };
 
     fetchUser();
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   if (!isInitialized) return null;
 
@@ -83,19 +87,38 @@ export default function Nav() {
           {logged && (
             <>
               {isDoctor ? (
-                <Link
-                  href="/doctor/schedule/view"
-                  className="text-white hover:text-green-400"
-                >
-                  Schedule
-                </Link>
+                <>
+                  <Link
+                    href="/doctor/schedule/view"
+                    className="text-white hover:text-green-400"
+                  >
+                    Schedule
+                  </Link>
+
+                  {/* 🔥 NEW: DOCTOR APPOINTMENTS */}
+                  <Link
+                    href="/doctor/appointments"
+                    className="text-white hover:text-yellow-400"
+                  >
+                    Appointments
+                  </Link>
+                </>
               ) : (
-                <Link
-                  href="/appointments/book"
-                  className="text-white hover:text-blue-400"
-                >
-                  Book Appointment
-                </Link>
+                <>
+                  <Link
+                    href="/patient/appointment/available-doctors"
+                    className="text-white hover:text-blue-400"
+                  >
+                    Book Appointment
+                  </Link>
+
+                  <Link
+                    href="/patient/appointment/my"
+                    className="text-white hover:text-yellow-400"
+                  >
+                    My Appointments
+                  </Link>
+                </>
               )}
 
               <Link
@@ -115,7 +138,6 @@ export default function Nav() {
                 {me?.first_name}
               </div>
 
-              {/* 🔥 OPTIONAL: show incomplete indicator */}
               {!profileComplete && (
                 <span className="text-yellow-400 text-xs">
                   (Update profile)
@@ -163,17 +185,34 @@ export default function Nav() {
           {logged && (
             <>
               {isDoctor ? (
-                <MobileItem href="/doctor/schedule/view" label="Schedule" />
+                <>
+                  <MobileItem
+                    href="/doctor/schedule/view"
+                    label="Schedule"
+                  />
+
+                  {/* 🔥 NEW */}
+                  <MobileItem
+                    href="/doctor/appointments"
+                    label="Appointments"
+                  />
+                </>
               ) : (
-                <MobileItem
-                  href="/appointments/book"
-                  label="Book Appointment"
-                />
+                <>
+                  <MobileItem
+                    href="/patient/appointment/available-doctors"
+                    label="Book Appointment"
+                  />
+
+                  <MobileItem
+                    href="/patient/appointment/my"
+                    label="My Appointments"
+                  />
+                </>
               )}
 
               <MobileItem href="/dashboard" label="Dashboard" />
 
-              {/* 🔥 show incomplete notice */}
               {!profileComplete && (
                 <div className="text-yellow-400 text-sm">
                   Complete your profile

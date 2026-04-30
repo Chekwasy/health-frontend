@@ -47,7 +47,7 @@ export default function Main() {
                     </button>
                   </Link>
                 ) : (
-                  <Link href="/appointments/book">
+                  <Link href="/patient/appointment/available-doctors">
                     <button className="mt-4 w-full bg-blue-600 py-2 rounded">
                       Book Appointment
                     </button>
@@ -73,7 +73,7 @@ export default function Main() {
                     </button>
                   </Link>
                 ) : (
-                  <Link href="/doctor/schedule/view">
+                  <Link href="/doctor/schedule/view" >
                     <button className="mt-4 w-full bg-green-600 py-2 rounded">
                       View Schedule
                     </button>
