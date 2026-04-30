@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 
 export default function Main() {
-  const { logged, me, isInitialized } =
+  const { logged, me, isInitialized, profileComplete } =
     useSelector((state: any) => state.mainState) || {};
 
   if (!isInitialized) return null;
@@ -39,11 +39,21 @@ export default function Main() {
             </p>
 
             {logged && !isDoctor && (
-              <Link href="/appointments/book">
-                <button className="mt-4 w-full bg-blue-600 py-2 rounded">
-                  Book Appointment
-                </button>
-              </Link>
+              <>
+                {!profileComplete ? (
+                  <Link href="/patient/update-profile">
+                    <button className="mt-4 w-full bg-yellow-500 text-black py-2 rounded font-bold">
+                      Complete Profile First
+                    </button>
+                  </Link>
+                ) : (
+                  <Link href="/appointments/book">
+                    <button className="mt-4 w-full bg-blue-600 py-2 rounded">
+                      Book Appointment
+                    </button>
+                  </Link>
+                )}
+              </>
             )}
           </div>
 
@@ -55,11 +65,21 @@ export default function Main() {
             </p>
 
             {logged && isDoctor && (
-              <Link href="/doctor/schedule">
-                <button className="mt-4 w-full bg-green-600 py-2 rounded">
-                  Manage Schedule
-                </button>
-              </Link>
+              <>
+                {!profileComplete ? (
+                  <Link href="/doctor/update-profile">
+                    <button className="mt-4 w-full bg-yellow-500 text-black py-2 rounded font-bold">
+                      Complete Profile First
+                    </button>
+                  </Link>
+                ) : (
+                  <Link href="/doctor/schedule">
+                    <button className="mt-4 w-full bg-green-600 py-2 rounded">
+                      Manage Schedule
+                    </button>
+                  </Link>
+                )}
+              </>
             )}
           </div>
         </div>
