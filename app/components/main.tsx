@@ -73,9 +73,9 @@ export default function Main() {
                     </button>
                   </Link>
                 ) : (
-                  <Link href="/doctor/schedule">
+                  <Link href="/doctor/schedule/view">
                     <button className="mt-4 w-full bg-green-600 py-2 rounded">
-                      Manage Schedule
+                      View Schedule
                     </button>
                   </Link>
                 )}

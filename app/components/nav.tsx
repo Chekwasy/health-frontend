@@ -24,7 +24,7 @@ export default function Nav() {
 
       if (!token) {
         dispatch(setInitialized());
-        return;
+        router.push('/auth/login');
       }
 
       try {
@@ -44,6 +44,7 @@ export default function Nav() {
       } catch {
         Cookies.remove("access_token");
         dispatch(logout());
+        router.push("/auth/login");
       }
     };
 
@@ -83,7 +84,7 @@ export default function Nav() {
             <>
               {isDoctor ? (
                 <Link
-                  href="/doctor/schedule"
+                  href="/doctor/schedule/view"
                   className="text-white hover:text-green-400"
                 >
                   Schedule
@@ -162,7 +163,7 @@ export default function Nav() {
           {logged && (
             <>
               {isDoctor ? (
-                <MobileItem href="/doctor/schedule" label="Schedule" />
+                <MobileItem href="/doctor/schedule/view" label="Schedule" />
               ) : (
                 <MobileItem
                   href="/appointments/book"
